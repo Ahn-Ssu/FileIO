@@ -1,6 +1,7 @@
 package edu.handong.csee.java.example.fileread.benchmark;
 
 import java.io.*;
+import java.util.ArrayList;
 
 /**
  * Created by sherxon on 4/23/17. https://github.com/sherxon/AlgoDS/tree/master/src/oi
@@ -8,33 +9,50 @@ import java.io.*;
 public class UsingBufferedReader {
     public static void main(String[] args) throws IOException {
     	
-    	String fileName = args[0];
-
+    	ArrayList<String> fileName = new ArrayList<String>();
+    	for(String file:args) {
+    		fileName.add(file);
+    	}
+    	
         //-------------- Test reading 1 MB file. --------------------
 
         StopWatch.start();
 
-        BufferedReader inputStream= new BufferedReader(new FileReader(fileName));
-        while (inputStream.read()!=-1){}
+        try {
+        	 BufferedReader inputStream= new BufferedReader(new FileReader(fileName.get(0)));
+             while (inputStream.read()!=-1){}
 
-        long duration = StopWatch.stop();
-        System.out.println(duration + " milsec");
+             long duration = StopWatch.stop();
+             System.out.println(duration + " milsec");
+             
+             inputStream.close();
+        }catch(Exception e) {
+        	System.out.println("Error : Plz, first file name");
+        	System.exit(0);
+        	
+        }
+       
+
         
-        inputStream.close();
-
-        /*
         //-------------- Test reading 10 MB file. --------------------
 
         StopWatch.start();
 
-        BufferedReader inputStream2= new BufferedReader(new FileReader(DumpDataWriter.input10MB));
-        while (inputStream2.read()!=-1){}
+        try {
+        	BufferedReader inputStream2= new BufferedReader(new FileReader(fileName.get(1)));
+            while (inputStream2.read()!=-1){}
 
-        long duration2 = StopWatch.stop();
-        System.out.println(duration2 + " milsec");
+            long duration2 = StopWatch.stop();
+            System.out.println(duration2 + " milsec");
 
-        inputStream2.close();
-        */
+            inputStream2.close();
+        }catch(Exception e) {
+        	System.out.println("Error : Plz, Enter second file name");
+        	System.exit(0);
+        	
+        }
+        
+        
         /*
         //-------------- Test reading 100 MB file. --------------------
 
